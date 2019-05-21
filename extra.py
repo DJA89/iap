@@ -48,6 +48,14 @@ def create_file(name_file, numP, numT):
     f.write(')\n')
     f.close()
 
+def choose_values():
+    while True:
+        numP = int(input('Programadores: '))
+        numT = int(input('Tareas: '))
+        if 13 + 5*numT + 2*numP <= maxLines:
+            break
+    create_file('problem.pddl', numP, numT)
+
 def experiment_2():
     max_programador = int((maxLines - 13 - 5)/2)
     max_tarea = int((maxLines - 13 - 2)/5)
@@ -65,11 +73,13 @@ def experiment_1():
     create_file('extra.pddl', numP, numT)
 
 def main():
-    var = input('Experimento 1, Experimento 2: ')
+    var = input('Experimento 1 (1)\nExperimento 2 (2)\nElegir valores (3)\nOpcion: ')
     if var == '1':
         experiment_1()
     elif var == '2':
         experiment_2()
+    elif var == '3':
+        choose_values()
 
 if __name__ == "__main__":
     main()
