@@ -35,6 +35,8 @@ def create_file(name_file, numP, numT):
         f.write('\t(= (nivel_programador p' + str(i) + ') ' + str(nivel_programador) + ')\n')
     for i in range(int(numP)):
         f.write('\t(= (calidad_programador p' + str(i) + ') ' + str(random.randint(1, 2)) + ')\n')
+    for i in range(int(numP)):
+        f.write('\t(= (total_tareas_asignadas p' + str(i) + ') 0)\n')
     f.write('\t(= (horas_totales) 0)\n')
     f.write(')\n')
     f.write('(:goal (and\n')
