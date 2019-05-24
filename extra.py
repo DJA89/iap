@@ -22,11 +22,11 @@ def check_viability(tareas, programador):
         while tareas[j] > 0:
             if i == 3:
                 return False
-            if tareas[j] <= 2.0*programador[i]:
-                programador[i] -= tareas[j]/2.0
+            if tareas[j] <= programador[i]:
+                programador[i] -= tareas[j]
                 tareas[j] = 0
             else:
-                tareas[j] -= 2.0*programador[i]
+                tareas[j] -= programador[i]
                 programador[i] = 0
             i += 1
         j += 1
@@ -52,7 +52,7 @@ def create_file(name_file, numP, numT, extension):
         cant_tareas = [0,0,0]
         for i in range(numT):
             nivel_tarea = random.randint(1, 3)
-            cant_tareas[nivel_tarea-1] += 1.0
+            cant_tareas[nivel_tarea-1] += 1
             f.write('\t(= (nivel_tarea t' + str(i) + ') ' + str(nivel_tarea) + ')\n')
         if extension > 1:
             for i in range(int(numT)):
@@ -60,7 +60,7 @@ def create_file(name_file, numP, numT, extension):
         cant_programador = [0,0,0]
         for i in range(numP):
             nivel_programador = random.randint(1, 3)
-            cant_programador[nivel_programador-1] += 1.0
+            cant_programador[nivel_programador-1] += 1
             f.write('\t(= (nivel_programador p' + str(i) + ') ' + str(nivel_programador) + ')\n')
         if extension > 1:
             for i in range(int(numP)):
@@ -94,7 +94,7 @@ def choose_values(extension):
     while True:
         numP = int(input('Programadores: '))
         numT = int(input('Tareas: '))
-        if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and 2*numP >= numT:
+        if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and numP >= numT:
             break
         print('Valores elegidos superan el maximo de lineas permitida o la cantidad de programadores es insuficiente')
     create_file('problemas/iap_problema_extension_' + str(extension) + '_p='+str(numP)+'_t='+str(numT)+'.pddl', numP, numT, extension)
@@ -106,7 +106,7 @@ def experiment_2(extension):
     linesFixed, repeatCoders, repeatTasks = check_extension(extension)
     for numP in range(1,int((maxLines - linesFixed - repeatTasks)/repeatCoders)):
         for numT in range(1,int((maxLines - linesFixed - repeatCoders)/repeatTasks)):
-            if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and 2*numP >= numT:
+            if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and numP >= numT:
                 create_file('experimento2/iap_problema_extension_' + str(extension) + '_p='+str(numP)+'_t='+str(numT)+'.pddl',numP,numT, extension)
 
 def experiment_1(extension):
@@ -114,7 +114,8 @@ def experiment_1(extension):
     while True:
         numP = random.randint(1, int((maxLines - linesFixed - repeatTasks)/repeatCoders))
         numT = random.randint(1, int((maxLines - linesFixed - repeatCoders)/repeatTasks))
-        if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and 2*numP >= numT:
+        print(numP,numT)
+        if linesFixed + repeatTasks*numT + repeatCoders*numP <= maxLines and numP >= numT:
             break
     create_file('experimento1/iap_problema_extension_' + str(extension) + '_aleatorio.pddl', numP, numT, extension)
 
