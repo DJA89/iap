@@ -12,7 +12,7 @@ def check_extension(extension):
         return 13, 2, 5
     if extension == 1:
         return 11, 1, 4
-        
+
 def check_viability(tareas, programador):
     j = 0
     while j < 3:
@@ -61,7 +61,7 @@ def create_file(name_file, numP, numT, extension):
         for i in range(numP):
             nivel_programador = random.randint(1, 3)
             cant_programador[nivel_programador-1] += 1.0
-            f.write('\t(= (nivel_programador p' + str(i) + ') ' + str(nivel_programador) + ')\n') 
+            f.write('\t(= (nivel_programador p' + str(i) + ') ' + str(nivel_programador) + ')\n')
         if extension > 1:
             for i in range(int(numP)):
                 f.write('\t(= (calidad_programador p' + str(i) + ') ' + str(random.randint(1, 2)) + ')\n')
@@ -71,7 +71,7 @@ def create_file(name_file, numP, numT, extension):
         if extension > 1:
             f.write('\t(= (horas_totales) 0)\n')
         if extension == 4:
-           f.write('\t(= (ponderacion) 0)\n')
+           f.write('\t(= (trabajadores_totales) 0)\n')
         f.write(')\n')
         f.write('(:goal (and\n')
         for i in range(int(numT)):
@@ -81,7 +81,7 @@ def create_file(name_file, numP, numT, extension):
         f.write('\t)\n')
         f.write(')\n')
         if extension == 4:
-            f.write('(:metric minimize (ponderacion))\n')
+            f.write('(:metric minimize (+ (* 1.5 (trabajadores_totales)) (* 5 (horas_totales))))\n')
         elif extension == 3 or extension == 2:
             f.write('(:metric minimize (horas_totales))\n')
         f.write(')\n')
